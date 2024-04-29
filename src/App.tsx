@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { AddTask } from "./components"
 import { Context } from "./context/AppContext"
 import { Task,TaskSetter } from "./interfaces/interfaces"
-import { AnimatePresence,delay,motion } from "framer-motion"
+import { AnimatePresence,motion } from "framer-motion"
 export const App = () => {
   const [formData, setFormData] = useState({
     titleTask: '',
