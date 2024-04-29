@@ -12,6 +12,7 @@ export default {
         'gray-f': '#242422',
       },
       screens: {
+        'mobile':'450px',
         'tablet': '700px',
       }
     },

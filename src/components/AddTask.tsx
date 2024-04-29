@@ -1,14 +1,17 @@
 import { useContext, useState } from "react"
 import { Context } from "../context/AppContext"
 import { Task,TaskSetter } from "../interfaces/interfaces"
+import { motion } from "framer-motion"
+import { add } from "../anim"
 
 interface Props {
   title: string
   taskDescription: string
   state?: boolean
   id:string
+  i:number
 }
-export const AddTask: React.FC<Props> = ({ state = false, taskDescription, title, id }) => {
+export const AddTask: React.FC<Props> = ({ state = false, taskDescription, title, id,i }) => {
   const [completed, setCompleted] = useState(state)
   const { task, setTask } = useContext(Context) as { task: Task[], setTask:TaskSetter };
   const handleClick = () => {
@@ -25,7 +28,13 @@ export const AddTask: React.FC<Props> = ({ state = false, taskDescription, title
   const styleTitle = completed ? 'line-through' : ''
 
   return (
-    <article id={id} className="bg-white-bg p-3 flex justify-between gap-4">
+    <motion.article 
+      variants={add}
+      initial='initial'
+      animate='enter'
+      custom={i}
+      id={id} 
+      className="bg-white-bg p-3 flex flex-col mobile:flex-row justify-between gap-2">
       <div className="flex flex-1 items-center gap-5">
         <span onClick={handleClick} className={`${styleCheckbox} p-1 transition-all hover:bg-purple-300`}>
           <svg className="w-6 h-6 stroke-white stroke-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
@@ -38,7 +47,7 @@ export const AddTask: React.FC<Props> = ({ state = false, taskDescription, title
           <p className="font-light text-balance">{taskDescription}</p>
         </main>
       </div>
-      <div className="flex gap-2 py-2">
+      <div className="flex gap-2 py-2 justify-end mobile:justify-normal">
         <span className={`${stateTask} p-2 grid place-content-center`}>
           <span className="font-bold">{stateText}</span>
         </span>
@@ -46,6 +55,6 @@ export const AddTask: React.FC<Props> = ({ state = false, taskDescription, title
           <img src="/delete.svg" alt="removeTask" width='25px' height='25px' />
         </button>
       </div>
-    </article>
+    </motion.article>
   )
 }
